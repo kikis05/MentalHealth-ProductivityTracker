@@ -1,4 +1,5 @@
-This project is not completed yet.
+A dashboard for tracking productivity and mental health.
+Uses React Javascript, Python, SQL, Flask, HTML, CSS.
 
 To run:
 
