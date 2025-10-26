@@ -1,89 +1,89 @@
 .task-container {
-    display: flex;
-    margin:10px;
-    flex-wrap: wrap;
-    height:90%;
+  display: flex;
+  margin: 10px;
+  flex-wrap: wrap;
+  height: 90%;
 }
 .task-info-container {
-    display:flex;
-    flex-direction:column;
-    width:100%;
-    position:relative;
-    height:100%;
-    gap:20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  height: 100%;
+  gap: 20px;
 }
 .task-header {
-    width:100%;
-    background-color:var(--light-1);
-    padding:15px;
-    height:100px;
-    overflow-y:scroll;
-    border-radius:8px;
+  width: 100%;
+  background-color: var(--light-1);
+  padding: 15px;
+  height: 100px;
+  overflow-y: scroll;
+  border-radius: 8px;
 }
 .task-board {
-    width:100%;
-    display: flex;
-    background-color:var(--dark-2);
-    border-radius:8px;
-    padding:20px;
-    flex-wrap: wrap;
-    overflow-y:auto;
-    bottom:70px;
-    min-height:60%;
+  width: 100%;
+  display: flex;
+  background-color: var(--dark-2);
+  border-radius: 8px;
+  padding: 20px;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  bottom: 70px;
+  min-height: 60%;
 }
 .task-entry {
-    width:100%;
-    padding: 25px;
-    width: 100%;
-    background-color:var(--light-1);
-    color: black;
-    height:40px;
-    bottom:20px;
-    border-radius:8px;
+  width: 100%;
+  padding: 25px;
+  width: 100%;
+  background-color: var(--light-1);
+  color: black;
+  height: 40px;
+  bottom: 20px;
+  border-radius: 8px;
 }
 
 .task-item {
-    background-color: var(--light-1);
-    padding:10px;
-    display:flex;
-    flex-direction:column;
-    margin:10px;
-    text-align: center;
-    border-radius:5px;
-    position:relative;
-    min-width:200px;
-    max-width:300px;
-    min-height:200px;
-    max-height:300px;
+  background-color: var(--light-1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  text-align: center;
+  border-radius: 5px;
+  position: relative;
+  min-width: 200px;
+  max-width: 300px;
+  min-height: 200px;
+  max-height: 300px;
 }
 
 .task-pin {
-    position:absolute;
-    left:5px;
-    top:5px;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
 }
 
 .task-plus {
-    background-color: var(--dark-3);
-    color:black;
-    border-radius:100%;
-    font-size:20px;
-    border:none;
+  background-color: var(--dark-3);
+  color: black;
+  border-radius: 100%;
+  font-size: 20px;
+  border: none;
 }
 .task-complete {
-    background-color: var(--dark-3);
-    color:black;
-    border:none;
-    margin-top:10px;
-    font-family:'Courier New', Courier, monospace;
-    padding:5px;
+  background-color: var(--dark-3);
+  color: black;
+  border: none;
+  margin-top: 10px;
+  font-family: "Courier New", Courier, monospace;
+  padding: 5px;
 }
 
 .enter-button {
-    height:36px;
+  height: 36px;
 }
 
 input {
@@ -91,10 +91,10 @@ input {
   padding: 0.6em 1.2em;
   background-color: var(--light-3);
   color: rgb(0, 0, 0);
-  font-family:'Courier New', Courier, monospace;
-  font-size: 15px; 
+  font-family: "Courier New", Courier, monospace;
+  font-size: 15px;
   margin: 5px;
-  border:solid;
+  border: solid;
   border-color: var(--dark-3);
-  min-width:40px;
+  min-width: 40px;
 }

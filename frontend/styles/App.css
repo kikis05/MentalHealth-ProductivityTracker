@@ -1,21 +1,21 @@
 .container {
-  width:100vw;
-  height:100%;
-  display:flex;
-  background-color:var(--light-2);
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  background-color: var(--light-2);
 }
 
 .content {
-  display:flex;
-  flex-direction:row;
-  height:100%;
-  width:100%;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
 }
 
 .health-container {
   width: 30vw;
-  height:90vh;
-  padding:10px;
+  height: 90vh;
+  padding: 10px;
 }
 
 .task-container {
@@ -27,11 +27,12 @@
   padding: 2em;
 }
 
-@media (max-width: 768px) { /* Hides the component when screen width is 768px or less */
+@media (max-width: 768px) {
+  /* Hides the component when screen width is 768px or less */
   .health-container {
     display: none; /* Removes the element from the document flow */
   }
   .task-container {
     width: 100%; /* Removes the element from the document flow */
-}
+  }
 }

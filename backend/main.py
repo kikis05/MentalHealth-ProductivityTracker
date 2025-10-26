@@ -47,12 +47,10 @@ def format_dates(date_str):
         case "Dec":
             str += "12"
     str = str + "-" + date_str[5:7]
-    print("formatted date", str)
     return str
 
 def organize_updates_by_date(task_updates, health_updates, today):
     #later see if you can save this json and keep updating it rather than recreating list
-    print("input", task_updates, health_updates)
     json_date_formatted_updates = []
     if len(task_updates) == 0:
         start = format_dates(health_updates[0].date)
@@ -65,57 +63,35 @@ def organize_updates_by_date(task_updates, health_updates, today):
             start = task_start
         else:
             start = health_start
-    print("start today", start, today)
+    #print("start today", start, today)
     if start != today:
         list_of_dates = pd.date_range(start = start,
                                  end = today, freq = "D")
     else:
         list_of_dates = [start]
 
-    print("lod", list_of_dates)
+    #print("lod", list_of_dates)
     iter_t = 0
     iter_h = 0
     for date in list_of_dates:
         comparable_date = pd.to_datetime(date)
-        print("date", date)
+        #print("date", date)
         task_update_list = []
         while (iter_t < len(task_updates) and pd.to_datetime(format_dates(task_updates[iter_t].date)) == comparable_date):
-            print("task_updates added", task_updates[iter_t].to_json())
+            #print("task_updates added", task_updates[iter_t].to_json())
             task_update_list.append(task_updates[iter_t].to_json())
             iter_t += 1
         health_update_list = []
         while (iter_h < len(health_updates) and pd.to_datetime(format_dates(health_updates[iter_h].date)) == comparable_date):
-            print("health_updates added", health_updates[iter_h].to_json())
+            #print("health_updates added", health_updates[iter_h].to_json())
             health_update_list.append(health_updates[iter_h].to_json())
             iter_h += 1
         json_date_formatted_updates.append(to_date_json(date, task_update_list, health_update_list))
-    print("json Formatted upd", json_date_formatted_updates)
+    #print("json Formatted upd", json_date_formatted_updates)
     return json_date_formatted_updates
 
-def organize_health_updates_by_date(updates, today):
-    #later see if you can save this json and keep updating it rather than recreating list
-    json_date_formatted_health_updates = []
-    print("UPDATES", updates)
-    if len(updates) > 1:
-        list_of_dates = pd.date_range(start = format_dates(updates[0].date),
-                                 end = today, freq = "D")
-    else:
-        list_of_dates = [format_dates(updates[0].date)]
-    print("list of health dates are"+ str(list_of_dates))
-    #for loop
-    iter = 0
-    for date in list_of_dates:
-        temp_update_list = []
-        while (iter < len(updates) and format_dates(updates[iter].date) == str(date)[:10]):
-            # print ("came into match loop")
-            temp_update_list.append(updates[iter].to_json())
-            iter += 1
-        json_date_formatted_health_updates.append(to_date_json(date, temp_update_list))
-    return json_date_formatted_health_updates
-
-
 def to_date_json(date, tasks, health):
-    print("Date is, ", str(date))
+    #print("Date is, ", str(date))
     return {
         "date": str(date)[:10],
         "task_updates": tasks,
@@ -127,9 +103,9 @@ def organize_updates_by_task(updates, tasks):
     for task in tasks:
         temp_update_list = []
         for update in updates:
-            # print("comparing " + update.task_name + " to " + task.task_name)
+            # #print("comparing " + update.task_name + " to " + task.task_name)
             if (update.task_name == task.task_name):
-                # print("matched")
+                # #print("matched")
                 temp_update_list.append(update.to_json())
         json_task_formatted_updates.append(to_task_json(task, temp_update_list))
     return json_task_formatted_updates
@@ -173,11 +149,11 @@ def get_task_updates_by_date():
 @app.route("/health_updates_by_date", methods = ["GET"])
 def get_health_updates_by_date():
     updates = HealthUpdate.query.all()
-    print("updates are", updates)
+    #print("updates are", updates)
     if (len(updates) > 0):
         # json_updates = list(map(lambda x: x.to_json(), updates))
         json_updates = organize_health_updates_by_date(updates, DATE.today())
-        print("formatted updates", json_updates)
+        #print("formatted updates", json_updates)
         return jsonify({"healthUpdates" : json_updates})
     else:
         message = "No updates yet"
@@ -224,7 +200,7 @@ def create_update(task_id):
     color = task.color
     description = request.json.get("description")
     date = request.json.get("date")
-    print("TASK DATE" , date)
+    #print("TASK DATE" , date)
     if not description:
         description = ""
     if not date:
@@ -258,7 +234,7 @@ def delete_task(task_id):
 
 # @app.route("/upload_image", methods = ["POST"])
 # def upload_image():
-#     print("Uploaded Image!!!")
+#     #print("Uploaded Image!!!")
 #     file = request.files['file']
 #     if not file:
 #         return jsonify({"message": "No string uploaded"}), 404
@@ -267,13 +243,13 @@ def delete_task(task_id):
 #         return jsonify({"message": "Invalid file format. Allowed formats: png, jpg, jpeg, and gif."}), 400
 #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
 #                 # Store 'filename' in your database if needed
-#     print("saved image")
+#     #print("saved image")
 #     new_image = ImageUpload(file_name = file_name)
-#     print("new image", new_image)
+#     #print("new image", new_image)
 #     try:
 #         db.session.add(new_image)
 #         db.session.commit()
-#         print("image has been uploaded")
+#         #print("image has been uploaded")
 #     except Exception as e:
 #         return jsonify({"message": str(e)}), 400
 #     return jsonify({"message" : "Image uploaded!"}), 201
@@ -282,7 +258,7 @@ def delete_task(task_id):
 # def get_image():
 #     images = ImageUpload.query.all()
 #     json_image_list = list(map(lambda x: x.to_json(), images))
-#     print("image", json_image_list)
+#     #print("image", json_image_list)
 #     return jsonify({"images" : json_image_list})
 
 @app.route("/create_health_update", methods = ["POST"])
@@ -296,7 +272,7 @@ def create_health_update():
         appetite = request.json.get("appetite")
         sleep = request.json.get("sleep")
         notes = request.json.get("note")
-        print("NOTES ARE", notes)
+        #print("NOTES ARE", notes)
         new_update = HealthUpdate(
             date = date,
             time = time,
