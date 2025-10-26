@@ -1,11 +1,11 @@
 import React from "react"
 import {useState, useEffect} from "react"
+import "../styles/Calendar.css"
+import HealthTracker from "./HealthTracker"
 
-const UpdateDisplayDate = ({dateData}) => {
+const UpdateDisplayDate = ({updatesData}) => {
 
-
-
-    const [listObject, setListObject] = useState({date: "", upd : []})
+    const [updates, setUpdates] = useState({date: "", task_updates : [], health_updates : []})
 
     useEffect(() => {
         // setCurrentDate(updates[0].date)
@@ -30,93 +30,65 @@ const UpdateDisplayDate = ({dateData}) => {
 
     const setZoomInBox = async (props) => {
 
-        setListObject(props)
-    }
-    const setZoomInBoxMouseOut = async () => {
-
-
-        // setListObject({date: "", upd : []})
+        console.log("Updates are: ", props)
+        setUpdates(props)
     }
 
-    return <div>
-
-    <br />
-    <br />
-    <br />
-    <section className = "main">
-    <div className = "list" style = {{"height" : "600px"}}>
-    <table style = {{"width" : "500px", "display": "flex", "flex-direction" : "row", "border": "0px solid"}}>
-        <thead></thead>
-        <tbody>
-            {dateData.map((date) => (
-                <tr key = {date.date} onMouseEnter = {() => setZoomInBox(date)} >
-                    <td style = {{"text-align": "left"}}>{date.date}</td>
-                    {date.upd.map((upd) => (
-                        <td style = {{ "padding" : "0px", "text-align": "right", "width": "30px"}}>
-                            <div className = "square" style = {{background: upd.color, margin: "2px"}}></div>
-                        </td>
-                    ))}
-                </tr>
-            ))}
-        </tbody>
-    </table>
-    </div>
-    <br />
-    <div className = "list">
-    <table style = {{"width" : "600px", "border": "0px solid"}}>
-        <thead >{listObject.date}</thead>
-        <tbody className = "scroll">
-            {(listObject.upd) ? (listObject.upd.map((update) => (
-                <tr key = {update.id} >
-                    <td style = {{"width" : "35px"}}><div className = "square" style = {{background: update.color}}></div></td>
-                    <td style = {{"text-align" : "left", "width" : "150px"}}>{update.taskName}</td>
-                    <td style = {{"width" : "200px", "text-align" : "left"}}>Desc: {update.description}</td>
-                </tr>
-
-            ))) : (
-                <div></div>
-            )
-
-            }
-
-        </tbody>
-
-    </table>
-    </div>
-    </section>
+    return <div class="container">
+        <div className = "date-list">
+            <strong>Dates</strong>
+            <br></br>
+            {updatesData.map((date) => (
+                <div className="date-info" key= {date.date} onMouseEnter = {() => setZoomInBox(date)}>
+                    {date.date}
+                    <div className="square-container">
+                        {date.task_updates.map((upd) => (
+                                <div className = "square" style = {{background: upd.color, margin: "2px"}}></div>   
+                        ))}
+                    </div>
+                </div>
+                ))}
+        </div>
+        { updates.date != "" &&
+        <div className = "date-list-details-container">
+        <div className = "date-heading"> 
+            <strong>{updates.date}</strong>
+        </div>
+        <div className = "date-list-details">
+            <div className="task-details">
+                <p><strong>Task Updates</strong></p>
+                    {(updates.task_updates && updates.task_updates.map((update) => (
+                        <div key = {update.id} >
+                            <div className="task-heading"><div className = "square" style = {{background: update.color}}></div>
+                            {update.taskName}
+                            </div>
+                            <p>{update.description}</p>
+                        </div>
+                    ))) }
+            </div>
+            <div className="health-details">
+                <div className="date-heading">
+                    <strong>Health Updates</strong>
+                </div>
+                <div className="health-list"> 
+                    {(updates.health_updates && updates.health_updates.map((update) => (
+                        <HealthTracker
+                            moodIn = {update.mood} 
+                            sleepIn= {update.sleep}
+                            satisfactionIn={update.satisfaction}
+                            stressIn={update.stress}
+                            energyIn={update.energy} 
+                            noteIn={update.notes}
+                            appetiteIn={update.appetiteIn} 
+                            timeIn = {update.time}
+                            displayMode={true}></HealthTracker> 
+                    ))) }
+                </div>
+            </div>
+        </div>
+        </div>
+    }
     </div> 
 }
 
 export default UpdateDisplayDate
-
-
-
-//     <table className = "display">
-//{ <thead>
-/*<tr>
-    <th>Productivity:</th>
-</tr>
-</thead>
-<tbody>
-    {updates.map((update) => (
-        <tr key = {update.id} onMouseEnter = {() => setZoomInBox(update)} onMouseLeave = {() => setZoomInBoxMouseOut()} >
-            <td>{update.date}</td>
-            <td><div className = "square" style = {{background: update.color}}></div></td>
-            <td>{update.taskName}</td>
-            <td>{update.description}</td>
-        </tr>
-    )) 
-    }
-</tbody>
-</table>
-<table className = "detail" >
-<thead></thead>
-<tbody>
-    <tr>
-        <td>{dateDisplay}</td>
-        <td><div className = "square" style = {{background: colorDisplay}}></div></td>
-        <td>{taskNameDisplay}</td>
-        <td>{descriptionDisplay}</td>
-    </tr>
-</tbody>
-//</table>*/

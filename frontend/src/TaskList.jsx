@@ -1,6 +1,8 @@
 import React from "react"
 import {useState, useEffect} from "react"
 import UpdateDisplayTask from "./UpdateDisplayTask"
+import "../styles/TaskList.css"
+import moment from "moment"
 
 const TaskList = ({taskItems, updatesByTask, updateCallback}) => {
 
@@ -11,7 +13,9 @@ const TaskList = ({taskItems, updatesByTask, updateCallback}) => {
     const [description, setUpdateDescription] = useState("")
     const [currentTaskId, setCurrentTaskId] = useState(0)
     const empty = ""
-    const [listObject, setListObject] =  useState("")
+    const [listObject, setListObject] =  useState(null)
+
+    const [modalOpen, setModalOpen] = useState(false)
 
 
     useEffect(() => {
@@ -76,28 +80,10 @@ const TaskList = ({taskItems, updatesByTask, updateCallback}) => {
         onSubmitUpdate(id)
     }
 
-    // const decreaseDays = async (id) => {
-    //     try {
-    //         const options = {
-    //             method: "PATCH"
-    //         }
-    //         const response = await fetch (`http://127.0.0.1:5000/decrease_task_counter/${id}`, options)
-    //         if (response.status === 200) {
-    //             updateCallback()
-    //         } else {
-    //             console.error("Failed to decrease number of days")
-    //         }
-    //     }  catch (error) {
-    //         console.error("Error in decreaseDays")
-    //         alert(error)
-    //     }
-    // }
-
     const onSubmitUpdate = async (taskId) => {
         console.log("I got called")
 
-        const d = new Date()
-        const date = d.toUTCString().substring(0,16)
+        const date = moment().utc().local().format('ddd, DD MMM YYYY')
         
         if(date == "") {
             console.log("Date isn't dating" + d.toUTCString().substring(0,16))
@@ -131,112 +117,63 @@ const TaskList = ({taskItems, updatesByTask, updateCallback}) => {
     const setTaskBasedUpdate = (props) => {
         console.log("came to setTaskBasedUpdate" + props)
         setListObject(props)
-        console.log(listObject)
-
-        // console.log("COming to the fnc")
-        // for (const task in updatesByTask) {
-        //     if(task.taskName == props.taskName){
-        //         console.log("coming here")
-        //         console.log(task)
-        //         setListObject(task)
-        //         break;
-        //     } 
-        // }
-
-
+        console.log(props)
     }
-    return <div>
-    {/* <section className = "main" style = {{"position" : "fixed", "left" : "50px", "top" : "150px", "display" : "inline-flex", "flexDirection" : "row", "flexWrap" : "wrap"}}> */}
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-        <div>
-            <div className = "list" style = {{ "position" : "fixed", "width" : "300px", "height" : "400px"}}>
-                <div>
-                    {(listObject) ? (<h2>{listObject}</h2>) : (<h2>You're doing great! Click on the pins to see details.</h2>)}
-                </div>
-                <div style = {{"position" : "relative", "margin" : "10px", "overflow" : "scroll"}}>
-                    {updatesByTask.map((t) => (
-                            (t.taskName == listObject) ? (
-                                <table key = {t.id} style = {{ "position" : "relative", "width" : "250px"}}>
-                                            <tbody>
-                                                {(t.upd) ? (t.upd.map((update) => (
-                                                    <tr key = {update.id}>
-                                                        <td>{update.date}</td>
-                                                        <td>{update.description}</td>
-                                                    </tr>
-                                                ))) : (
-                                                    <div></div>
-                                                )
-                                                }
-                                            </tbody>
-                                        </table>
-                            ) : (<div></div>)
-                        ))
-                    }
-                </div>
-            </div>
-        </div>
-        <div style = {{"position" :  "fixed", "margin-right" : "5%", "overflow" : "scroll", "height" :"65%", "width": "99%", "left": "300px", "right" : "5%", "bottom" : "15%"}}>
-            <table className = "all-note-display">
-                <thead></thead>
-                <tbody>
-                    <tr>
-                    {taskItems.map((task) => (
-                        <td>
-                            <table key = {task.id} style = {{"background": "#e8e7b5", "border" : "0px", "box-shadow" : "5px 5px 5px grey", "transform" : " rotate(5deg)"}}>
-                                <thead></thead>
-                                <tbody>
-                                    <tr >
-                                        <td id = "taskName"><button className = "pin" onClick = {(e) => {setTaskBasedUpdate(task.taskName)}} style = {{background: task.color, margin: "2px"}}></button><strong>{task.taskName}</strong><br/></td>
-                                        </tr>
-                                    <tr  >
-                                        <td>Days Worked On:</td>
-                                    </tr>
-                                    <tr><td><h2><strong>{task.numberDays}</strong></h2></td></tr>
-                                    <tr  >
-                                        <td>
-                                            <input 
-                                                name = "description"
-                                                type="text"
-                                                value = {(task.id == currentTaskId) ? description : null }
-                                                onChange = {(e) => distinguishTask(e, task.id)}
-                                            />
-                                            <button onClick = {() => increaseDays(task.id)}>+</button>
-                                        </td>
-                                    </tr>
-                                    <tr >
-                                        <td>
-                                            <button onClick = {() => onDelete(task.id)}>Task Complete</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                        </table>
-                        </td>
-                    ))}
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    {/* </section> */}
 
-        <br />
-        <div className = "foo">
+    return <div className="task-info-container">
+        <div className="task-header">
+        { listObject == null ? (<p>You're doing great! Click on the pins to see details.</p>) : 
+                (updatesByTask.map((t) => (
+                        (t.taskName == listObject) ? (
+                            <>
+                            <strong>{t.taskName}</strong>
+                                {(t.upd) ? (t.upd.map((update) => (
+
+                                        <div key = {update.id} style = {{ "display" : "flex", "flex-direction":"row", "gap":"20px"}}>
+                                            <td><strong>{update.date}</strong></td>
+                                            <br></br>
+                                            <td>{update.description}</td>
+                                        </div>
+        
+                                ))) : (
+                                    <div></div>
+                                )
+                                }
+                            </>
+                        ) : (<div></div>)
+                    ))
+                )
+        }
+        </div>
+        <div className="task-board">
+            {taskItems.map((task) => (
+                <div className="task-item" key={task.id}>
+                    <button className = "task-pin" style = {{background: task.color, margin: "2px"}} onClick = {(e) => {setTaskBasedUpdate(task.taskName)}}></button>
+                    <p><strong>{task.taskName}</strong></p>
+                    <p>Days Worked On:</p>
+                    <p><strong>{task.numberDays}</strong></p>
+                    <input 
+                        name = "description"
+                        type="text"
+                        value = {(task.id == currentTaskId) ? description : null }
+                        onChange = {(e) => distinguishTask(e, task.id)}
+                    />
+                    <div>
+                    <button onClick = {() => increaseDays(task.id)} >Add Update</button>
+                    </div>
+                    <button onClick = {() => onDelete(task.id)} className="task-complete">Task Complete</button>
+                </div> 
+                    ))}
+        </div>
+        <div className = "task-entry">
             <form onSubmit= {onSubmit}>  
                     <label htmlFor="listItemDescription">Add task:</label>
                     <input type="text" value = {taskName} onChange = {(e) => setTaskDescription(e.target.value)}/>
-                    <button type = "submit">Enter</button>
+                    <button className="enter-button" type = "submit">Enter</button>
             </form>
         </div>
-        <div className = "base">&nbsp;</div>
+       
     </div> 
 }
 
 export default TaskList
-
-// {/* <button onClick = {() => decreaseDays(task.id)}>-</button> */}

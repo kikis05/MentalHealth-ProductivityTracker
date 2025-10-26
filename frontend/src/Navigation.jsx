@@ -1,13 +1,12 @@
 import React from 'react'
-import {Link} from "react-router-dom"
+import {NavLink} from "react-router-dom"
+import "../styles/Navigation.css"
 
 const Navigation = () => {
-  return (<div className = "head">
-    <div><h2>Navigation</h2></div>
-    <ul>
-        <li><Link to="/Calendar">My Calendar</Link></li>
-        <li><Link to= "/">My Projects</Link></li>
-    </ul>
+  return (
+    <div class="header">
+    <NavLink to= "/" className="link" exact activeClassName='link-active'>Home</NavLink>
+    <NavLink to= "/Calendar" className="link" activeClassName='link-active'>My Calendar</NavLink>
     </div>
   )
 }

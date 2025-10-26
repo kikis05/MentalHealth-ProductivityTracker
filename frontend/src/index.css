@@ -1,209 +1,65 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin:0;
+  padding:0;
+} 
+
+body {
+  display: flex;
+  flex:1;
+}
+
 :root {
+  --light-1: #fefae0;
+  --light-2: #faedcd;
+  --light-3: #e9edc9;
+  --dark-1:#9c6644;
+  --dark-2: #d4a373;
+  --dark-3: #ccd5ae;
+
   font-family:'Schoolbell', 'Courier New', Courier, monospace; 
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgb(45, 29, 7);
-  /* background-color: hsl(91, 23%, 65%); */
-  background-image: url("images/brown_wall.png");
+  color: black;
+  background-color: var(--light-2);
   background-size: cover;
   background-clip: fixed;
-  background-attachment: fixed;
+  background-attachment: fixed; 
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  display: flex;
+  width: 100%;
+  height: 100%;
 
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #ffffff;
   text-decoration: inherit;
+  font-weight:bold;
 }
 a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  place-items:left;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  color: #ffffff;
 }
 
 button {
-  border-radius: 3px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color:  rgba(45, 28, 7, 0.415);
-  cursor: pointer;
-  transition: border-color 0.25s;
-  margin: 1px;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-input {
-  border-radius: 3px;
-  padding: 0.6em 1.2em;
-  background-color: aliceblue;
-  color: rgb(0, 0, 0);
+  background-color:var(--dark-3);
+  padding-left:10px;
+  padding-right:10px;
+  color:black;
+  border-radius:10px;
   font-family:'Courier New', Courier, monospace;
-  font-size: 15px; 
-  margin: 5px;
+  height:30px;
+  border:none;
 }
 
-table{
-  border: 3px solid;
-  border-collapse: collapse;
-  text-align:center;
-  width: 33%;
-  margin: 10px;
-}
-
-table.display{
-  border-radius: 5px;
-  border: 3px solid;
-  border-collapse: collapse;
-  text-align:center;
-  width: 80%;
-  margin: 10px;
-}
-
-table.detail {
-  height: 5em;
-  width: 600px;
-}
-
-.square {
-  display: flex;
-  width: 30px;
-  height: 30px;
-}
-
-.main{
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-tr, td {
-  padding: 10px;
-}
-
-
-div.foo {
-  position: fixed;
-  bottom: 20px;
-  left:0px; 
-  right:0px; 
-  margin: 0px;
-  padding: 25px;
-  width: 100%;
-  height: 50px;
-  background-color:rgb(147, 105, 47);
-  color: white;
-}
-div.base {
-  position: fixed;
-  bottom: 0px;
-  height: 20px;
-  left:0px;
-  background-color: rgb(120, 73, 26);
-  width: 100%;
-}
-div.head {
-  position: fixed;
-  top: 0px;  
-  margin-top: 25px;
-  height: 125px;
-  padding: 10px;
-  width: 175px;
-  background-color:rgb(20, 213, 219);
-  color: hsl(0, 0%, 0%);
-  transform: rotate(-10deg);
-  box-shadow : 3px 3px 5px rgba(58, 53, 67, 0.528);
-}
-div.title {
- position: fixed;
- top: 0px;
- background-color: pink;
- padding: 10px 50px 10px 50px;
- left: 50%;
-  margin-top: 20px;
-  transform: rotate(5deg);
-  height: 100px;
-  box-shadow : 3px 3px 5px rgba(58, 53, 67, 0.528);
-}
-
-table.all-note-display{
-  border: 0px solid;
-  margin-left: 350px;
-  overflow : scroll;
-}
-ul {
-  list-style-type: none;
-}
-li {
-  color: black;
-}
-
-a{
-  color: black;
-  text-align: left;
-}
-div.list {
-
-  padding: 15px;
-  background-image: url("images/bp.webp");
-  margin: 10px;
-  box-shadow : 3px 3px 5px rgba(58, 53, 67, 0.528);
-  width: 40%;
-  overflow: scroll;
-}
-
-div.menu {
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-}
-
-.pin {
-  width: 10px;
-  height: 40px;
-  border-radius: 20px;
-  box-shadow: rgba(58, 49, 49, 0.4) 1px 2px 4px, rgba(62, 57, 66, 0.3) 2px 7px 13px -2px, rgba(54, 45, 69, 0.2) -1px -3px 0px inset;  /* box-shadow: 3px 3px 5px rgba(63, 46, 78, 0.471); */
-}
-
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-
+button:hover {
+  background-color:var(--light-3);
 }

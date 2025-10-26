@@ -14,7 +14,6 @@ const setZoomInBoxMouseOut = async () => {
     setListObject({taskName: "", upd : []})
 }
 
-
   return (
     <div>
     <br />

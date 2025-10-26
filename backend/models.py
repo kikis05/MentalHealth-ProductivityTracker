@@ -60,7 +60,6 @@ class TaskUpdate(db.Model):
     description = db.Column(db.String, unique = False, nullable = True)
     color = db.Column(db.String, unique = False, nullable = False)
     #denormalizing color and task_name because initial color will not be updated in the future. 
-    #OR WILL IT?
 
     def to_json(self):
         return {
@@ -71,3 +70,37 @@ class TaskUpdate(db.Model):
             "taskName" : self.task_name
         }
     
+class ImageUpload(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    file_name = db.Column(db.String, unique = False, nullable = False)
+
+    def to_json(self):
+        return {
+            "id" : self.id,
+            "fileName" : self.file_name,
+        }
+class HealthUpdate(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    date = db.Column(db.String, unique=False, nullable=False)
+    time = db.Column(db.String, unique=False, nullable=False)
+    mood = db.Column(db.Integer, unique=False, nullable=True)
+    satisfaction = db.Column(db.Integer, unique = False, nullable = True)
+    stress = db.Column(db.Integer, unique = False, nullable = True)
+    energy = db.Column(db.Integer, unique = False, nullable = True)
+    appetite = db.Column(db.Integer, unique = False, nullable = True)
+    sleep = db.Column(db.Integer, unique = False, nullable = True)
+    notes = db.Column(db.String, unique = False, nullable = True)
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "date" : self.date,
+            "time" : self.time,
+            "mood" : self.mood,
+            "satisfaction" : self.satisfaction,
+            "stress" : self.stress,
+            "energy" : self.energy,
+            "appetite": self.appetite,
+            "sleep" : self.sleep,
+            "notes" : self.notes,
+        }
